@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dods_app.R
+import com.example.dods_app.ItemClickListener
 
-class ButtonsListAdapter(private val names : Array<String>, private val onClick : (Int, String) -> Unit) : RecyclerView.Adapter<ButtonHolder>() {
+class ButtonsListAdapter(private val clickListener: ItemClickListener, private val names: List<String>) : RecyclerView.Adapter<ButtonHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ButtonHolder {
         val rootView = LayoutInflater.from(viewGroup.context).inflate(R.layout.button_layout, viewGroup, false)
         val button : Button = rootView.findViewById(R.id.button)
-        return ButtonHolder(rootView, button, onClick)
+        return ButtonHolder(rootView, button, clickListener::onItemClick)
     }
 
     override fun getItemCount(): Int {
@@ -24,10 +25,10 @@ class ButtonsListAdapter(private val names : Array<String>, private val onClick 
 
 }
 
-class ButtonHolder(view : View, val button : Button, val onClick : (Int, String) -> Unit) : RecyclerView.ViewHolder(view) {
+class ButtonHolder(view : View, val button : Button, val onClick : (Int) -> Unit) : RecyclerView.ViewHolder(view) {
     init {
         button.setOnClickListener {
-            onClick(adapterPosition, button.text as String)
+            onClick(adapterPosition)
         }
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dods_app.ItemClickListener
 import com.example.dods_app.R
 import com.example.dods_app.Router
 import com.example.dods_app.adapters.ButtonsListAdapter
@@ -29,21 +30,25 @@ class MainFragment : Fragment() {
             inflater.context,
             2
         )
-        buttons.adapter = ButtonsListAdapter(createButtons(), ::onButtonClick)
+        buttons.adapter = ButtonsListAdapter(object : ItemClickListener {
+            override fun onItemClick(position: Int) {
+                when (position) {
+                    0 -> router.navigateTo { ListFragment.createListFragment() }
+                    1 -> router.navigateTo(true, ::PhotoFragment)
+                    else -> throw IllegalStateException()
+
+                }
+            }
+
+        }, createButtons())
 
         return layout
     }
 
-    private fun createButtons(): Array<String> {
-        return arrayOf(
+    private fun createButtons(): List<String> {
+        return listOf(
             "Photos by bread",
             "Random photo"
         )
-    }
-
-    private fun onButtonClick(position: Int, bread: String) = when (position) {
-        0 -> router.navigateTo { ListFragment.createListFragment(0) }
-        1 -> router.navigateTo(true, ::PhotoFragment)
-        else -> throw IllegalStateException()
     }
 }
