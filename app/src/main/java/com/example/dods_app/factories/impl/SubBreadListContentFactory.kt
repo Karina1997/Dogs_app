@@ -1,13 +1,13 @@
 package com.example.dods_app.factories.impl
 
 import com.example.dods_app.Router
-import com.example.dods_app.factories.ContentFactory
+import com.example.dods_app.factories.ListContentFactory
 import com.example.dods_app.fragments.PhotoFragment
 import com.example.dods_app.ItemClickListener
 import com.example.dods_app.producers.ListProducer
 import com.example.dods_app.producers.impl.SubBreadsListProducerImpl
 
-class SubBreadContentFactory(val router: Router, val bread: String): ContentFactory {
+class SubBreadListContentFactory(val router: Router, val bread: String): ListContentFactory {
     private val listProducer = SubBreadsListProducerImpl(bread)
 
     override fun getListProducer(): ListProducer {

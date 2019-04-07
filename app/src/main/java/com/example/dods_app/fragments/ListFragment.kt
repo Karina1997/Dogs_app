@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dods_app.R
 import com.example.dods_app.Router
 import com.example.dods_app.adapters.ButtonsListAdapter
-import com.example.dods_app.factories.ContentFactory
-import com.example.dods_app.factories.impl.BreadContentFactory
-import com.example.dods_app.factories.impl.SubBreadContentFactory
+import com.example.dods_app.factories.ListContentFactory
+import com.example.dods_app.factories.impl.BreadListContentFactory
+import com.example.dods_app.factories.impl.SubBreadListContentFactory
 
 class ListFragment : Fragment() {
 
@@ -57,9 +57,9 @@ class ListFragment : Fragment() {
         return layout
     }
 
-    private fun getContentFactory(args: Bundle?): ContentFactory {
+    private fun getContentFactory(args: Bundle?): ListContentFactory {
         return args?.getString(BREAD) ?.let {
-            return SubBreadContentFactory(router, it)
-        } ?: BreadContentFactory(router)
+            return SubBreadListContentFactory(router, it)
+        } ?: BreadListContentFactory(router)
     }
 }

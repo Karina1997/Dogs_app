@@ -1,13 +1,13 @@
 package com.example.dods_app.factories.impl
 
 import com.example.dods_app.Router
-import com.example.dods_app.factories.ContentFactory
+import com.example.dods_app.factories.ListContentFactory
 import com.example.dods_app.fragments.ListFragment
 import com.example.dods_app.ItemClickListener
 import com.example.dods_app.producers.ListProducer
 import com.example.dods_app.producers.impl.BreadsListProducerImpl
 
-class BreadContentFactory(val router: Router) : ContentFactory {
+class BreadListContentFactory(val router: Router) : ListContentFactory {
 
     private val listProducer = BreadsListProducerImpl()
 
