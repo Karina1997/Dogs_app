@@ -59,7 +59,7 @@ class ListFragment : Fragment(), AsyncResponse {
         buttons.adapter = adapter
 
         BreadsRequest(OkHttpClient(), this)
-            .execute(UrlGetter().getBreadorSubBreadUrl(arguments?.getString(BREAD)))
+            .execute(UrlGetter().getBreadOrSubBreadUrl("list", param = arguments?.getString(BREAD)))
         return layout
     }
 

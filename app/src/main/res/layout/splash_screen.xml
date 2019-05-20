@@ -15,7 +15,7 @@
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
 
     <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageViewSplash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/dog" android:layout_marginBottom="80dp"

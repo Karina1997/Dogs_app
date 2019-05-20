@@ -22,6 +22,7 @@ class BreadsRequest(val client: OkHttpClient, private val delegate: AsyncRespons
                 val gson = GsonBuilder().create()
                 val jsonObj : JsonElement = gson.fromJson(response.body().string(), JsonObject::class.java).get("message")
                 if (jsonObj.isJsonObject) return jsonObj.asJsonObject.keySet().toList()
+                if (jsonObj.isJsonPrimitive) return  listOf(gson.fromJson(jsonObj, String::class.java))
                 return gson.fromJson(jsonObj, Array<String>::class.java).toList()
             }
         } catch (e: IOException) {
