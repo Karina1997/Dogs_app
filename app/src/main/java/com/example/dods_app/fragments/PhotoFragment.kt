@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dods_app.BreadListUsageExecutor
+import com.example.dods_app.ImagePathListUsageExecutor
+import com.example.dods_app.ListLoader
 import com.example.dods_app.R
 import com.example.dods_app.adapters.PhotoListAdapter
 import com.example.dods_app.httpServices.AsyncResponse
@@ -14,32 +17,32 @@ import com.example.dods_app.httpServices.BreadsRequest
 import com.example.dods_app.httpServices.UrlGetter
 import com.squareup.okhttp.OkHttpClient
 
-class PhotoFragment : Fragment(), AsyncResponse {
+class PhotoFragment : Fragment() {
 
     lateinit var photos: RecyclerView
 
-
-    override fun processFinished(output: List<String>) {
-        photos.adapter = context?.let { PhotoListAdapter(output, resources) }
-    }
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val layout = inflater.inflate(R.layout.image_list_fragment, container, false)
-        BreadsRequest(OkHttpClient(), this)
-            .execute(
-                UrlGetter().getBreadOrSubBreadUrl(
-                    "images",
-                    arguments?.getString(BREAD),
-                    arguments?.getString(SUBBREAD)
-                )
-            )
+        val bread =  arguments?.getString(BREAD)
+        val subBread =  arguments?.getString(SUBBREAD)
+        val fileName = bread + subBread + "images"
+
         photos = layout.findViewById(R.id.recyclerView)
         photos.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.VERTICAL,
             false
         )
+
+        context?.let {
+            ListLoader(
+                it,
+                fileName ,
+                ImagePathListUsageExecutor(photos, resources),
+            bread != null || subBread != null).loadListFromStorage(
+                UrlGetter().getBreadOrSubBreadUrl("images", bread, subBread)
+            )
+        }
         return layout
     }
 

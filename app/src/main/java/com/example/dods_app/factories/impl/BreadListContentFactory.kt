@@ -6,6 +6,9 @@ import com.example.dods_app.factories.ListContentFactory
 import com.example.dods_app.fragments.ListFragment
 
 class BreadListContentFactory(val router: Router, var breads: List<String>) : ListContentFactory {
+    override fun setList(list: List<String>) {
+        breads = list
+    }
 
 
     override fun getList(): List<String> {

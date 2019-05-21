@@ -6,23 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dods_app.BitmapLoader
-import com.example.dods_app.ItemClickListener
+import com.example.dods_app.httpServices.BitmapLoader
 import com.example.dods_app.R
 
-class PhotoListAdapter(val photoList: List<String>, val resources: Resources) :
-    RecyclerView.Adapter<ViewHolder>(), ItemClickListener {
-    override fun onItemClick(position: Int) {
-//        notifyItemChanged(position)
-    }
+class PhotoListAdapter(private val photoList: List<String>, private val resources: Resources) :
+    RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val rootView = LayoutInflater.from(parent.context).inflate(R.layout.image_layout, parent, false)
-        val holder = ViewHolder(rootView)
-//        val lp = LinearLayout.LayoutParams(imageSize, imageSize)
-//        lp.gravity = Gravity.CENTER_HORIZONTAL
-//        holder.imageView.layoutParams = lp
-        return holder
+        return ViewHolder(rootView)
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +23,7 @@ class PhotoListAdapter(val photoList: List<String>, val resources: Resources) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imagePath: String = photoList[position]
-        BitmapLoader(holder.imageView, resources).loadBitmap(position, imagePath, this)
+        BitmapLoader(holder.imageView, resources).loadBitmap(imagePath)
     }
 }
 
