@@ -29,8 +29,7 @@ class ListLoader(
         }
     }
 
-
-    fun getList(): List<String> {
+    private fun getList(): List<String> {
         val file = File(context.cacheDir, filename)
         if (file.exists()) {
             return GsonBuilder().create()
