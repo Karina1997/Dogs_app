@@ -7,22 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dods_app.executor.BreadListUsageExecutor
 import com.example.dods_app.ListLoader
 import com.example.dods_app.R
 import com.example.dods_app.Router
+import com.example.dods_app.adapters.CardsAdapter
+import com.example.dods_app.executor.ListAndPhotoUsageExecutor
 import com.example.dods_app.factories.ListContentFactory
 import com.example.dods_app.factories.impl.BreadListContentFactory
 import com.example.dods_app.factories.impl.SubBreadListContentFactory
 import com.example.dods_app.httpServices.UrlGetter
 
-class ListFragment : Fragment() {
-
+class CardsFragment : Fragment() {
     companion object {
         private const val BREAD = "BREAD"
 
-        fun createListFragment(bread: String? = null): Fragment {
-            val fragment = ListFragment()
+        fun createCardsFragment(bread: String? = null): Fragment {
+            val fragment = CardsFragment()
             val args = Bundle()
             args.putString(BREAD, bread)
             fragment.arguments = args
@@ -31,32 +31,36 @@ class ListFragment : Fragment() {
     }
 
     private lateinit var router: Router
-    private lateinit var buttons: RecyclerView
+    private lateinit var cards: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         router = Router(requireActivity(), R.id.fragment_container)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val layout = inflater.inflate(R.layout.fragment_main, container, false)
-        buttons = layout.findViewById(R.id.buttons)
-        buttons.layoutManager = LinearLayoutManager(
+        cards = layout.findViewById(R.id.buttons)
+
+        cards.layoutManager = LinearLayoutManager(
             requireContext(),
             RecyclerView.VERTICAL,
             false
         )
 
+        val adapter = CardsAdapter(getContentFactory(arguments))
+        cards.adapter = adapter
+
+        val bread = arguments?.getString(BREAD)
         context?.let {
             ListLoader(
                 it,
-                arguments?.getString(BREAD) + "all",
-                BreadListUsageExecutor(buttons, getContentFactory(arguments)), true
-            ).loadListFromStorage(UrlGetter().getBreadOrSubBreadUrl("list", param = arguments?.getString(BREAD)))
+                bread + "all",
+                ListAndPhotoUsageExecutor(adapter, bread)
+                , true
+            ).loadListFromStorage(UrlGetter().getBreadOrSubBreadUrl("list", param = bread))
         }
-
         return layout
     }
 

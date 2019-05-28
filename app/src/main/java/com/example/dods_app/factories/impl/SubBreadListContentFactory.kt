@@ -7,8 +7,8 @@ import com.example.dods_app.fragments.PhotoFragment
 
 class SubBreadListContentFactory(val router: Router, val bread: String, var subBreads: List<String>) :
     ListContentFactory {
-    override fun setList(list: List<String>) {
-        subBreads = list
+    override fun addList(list: List<String>) {
+       subBreads =  subBreads.plus(list)
     }
 
     override fun getList(): List<String> {

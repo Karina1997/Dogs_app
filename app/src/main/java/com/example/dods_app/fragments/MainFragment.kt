@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
         buttons.adapter = ButtonsListAdapter(object : ItemClickListener {
             override fun onItemClick(position: Int) {
                 when (position) {
-                    0 -> router.navigateTo { ListFragment.createListFragment() }
+                    0 -> router.navigateTo { CardsFragment.createCardsFragment()}
                     1 -> router.navigateTo(true, ::PhotoFragment)
                     else -> throw IllegalStateException()
 

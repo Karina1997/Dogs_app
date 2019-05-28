@@ -3,11 +3,11 @@ package com.example.dods_app.factories.impl
 import com.example.dods_app.ItemClickListener
 import com.example.dods_app.Router
 import com.example.dods_app.factories.ListContentFactory
-import com.example.dods_app.fragments.ListFragment
+import com.example.dods_app.fragments.CardsFragment
 
 class BreadListContentFactory(val router: Router, var breads: List<String>) : ListContentFactory {
-    override fun setList(list: List<String>) {
-        breads = list
+    override fun addList(list: List<String>) {
+       breads = breads.plus(list)
     }
 
 
@@ -22,7 +22,7 @@ class BreadListContentFactory(val router: Router, var breads: List<String>) : Li
                 when (position) {
                     in 0 until breads.size ->
                         router.navigateTo(true) {
-                            ListFragment.createListFragment(
+                            CardsFragment.createCardsFragment(
                                 breads[position]
                             )
                         }

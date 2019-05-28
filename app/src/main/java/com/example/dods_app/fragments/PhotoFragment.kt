@@ -7,15 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dods_app.BreadListUsageExecutor
-import com.example.dods_app.ImagePathListUsageExecutor
+import com.example.dods_app.executor.ImagePathListUsageExecutor
 import com.example.dods_app.ListLoader
 import com.example.dods_app.R
-import com.example.dods_app.adapters.PhotoListAdapter
-import com.example.dods_app.httpServices.AsyncResponse
-import com.example.dods_app.httpServices.BreadsRequest
 import com.example.dods_app.httpServices.UrlGetter
-import com.squareup.okhttp.OkHttpClient
 
 class PhotoFragment : Fragment() {
 

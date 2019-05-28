@@ -1,6 +1,7 @@
 package com.example.dods_app
 
 import android.content.Context
+import com.example.dods_app.executor.ListUsageExecutor
 import com.example.dods_app.httpServices.AsyncResponse
 import com.example.dods_app.httpServices.BreadsRequest
 import com.google.gson.GsonBuilder
@@ -16,7 +17,7 @@ class ListLoader(
     override fun processFinished(output: List<String>) {
         val file = File(context.cacheDir, filename)
         file.writeText(GsonBuilder().create().toJson(output.toTypedArray()))
-        listUsageExecutor.addAdapter(output)
+        listUsageExecutor.useList(output)
     }
 
     fun loadListFromStorage(URL: String) {
@@ -25,7 +26,7 @@ class ListLoader(
             BreadsRequest(OkHttpClient(), this)
                 .execute(URL)
         } else {
-            listUsageExecutor.addAdapter(getList())
+            listUsageExecutor.useList(getList())
         }
     }
 

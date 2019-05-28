@@ -13,4 +13,11 @@
         <item name="android:background">#303F9F</item>
     </style>
 
+    <style name="ItemRow"/>
+
+    <style name="ItemRow.Selectable">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
 </resources>
